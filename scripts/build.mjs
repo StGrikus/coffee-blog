@@ -12,7 +12,6 @@ import {
 import { saveSoundCloudCover } from "./lib/soundcloud.js";
 import {
   BASE_PATH,
-  FOOTER_TEXT,
   SITE_URL,
   absUrl,
   toAbsoluteUrl,
@@ -34,6 +33,8 @@ import {
   buildPostSlug,
   cleanTitlePrefixNumber,
   extractPostNumber,
+  htmlLangFromFilename,
+  isListedPostFilename,
   isPinnedPostFilename,
   listPostFiles,
   postFilePath,
@@ -172,8 +173,7 @@ async function buildPosts({ postTpl, files, nextPostFilename, pinnedFilename, us
         description,
         html,
         ogImage,
-        nextPostFilename,
-        footerText: FOOTER_TEXT
+        lang: htmlLangFromFilename(filename)
       }),
       "utf-8"
     );
@@ -215,9 +215,7 @@ function writeListingPages({ pageTpl, posts, pinnedFilename, nextPostFilename })
 
     const pageHtml = renderPageHtml(pageTpl, {
       listHtml,
-      paginationHtml,
-      nextPostFilename,
-      footerText: FOOTER_TEXT
+      paginationHtml
     });
 
     const out = path.join(distDir, "page", String(p));
@@ -244,10 +242,11 @@ async function build() {
   const pinnedFilename = files.find(isPinnedPostFilename) || null;
 
   const posts = await buildPosts({ postTpl, files, nextPostFilename, pinnedFilename, usedSlugs });
-  const pages = writeListingPages({ pageTpl, posts, pinnedFilename, nextPostFilename });
+  const listedPosts = posts.filter((p) => isListedPostFilename(p.filename));
+  const pages = writeListingPages({ pageTpl, posts: listedPosts, pinnedFilename, nextPostFilename });
 
   write404Page();
-  writeSeoFiles(posts, pages);
+  writeSeoFiles(listedPosts, pages);
   writeCnameIfNeeded();
 }
 

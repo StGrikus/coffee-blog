@@ -27,9 +27,10 @@ export function resolvePostAssetDir(filename) {
 export function rewritePostAssetUrls(content, basename) {
   if (!basename) return content;
   const s = String(content || "");
-  const folderPrefix = `./${basename}/`;
-  if (!s.includes(folderPrefix)) return s;
-  return s.split(folderPrefix).join("./");
+  // `(?<!\.)` so `../same-slug/` is not treated as `./same-slug/`.
+  const escaped = String(basename).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const folderPrefix = new RegExp(`(?<!\\.)\\./${escaped}/`, "g");
+  return s.replace(folderPrefix, "./");
 }
 
 /** `./diagrams/x.svg` on a post page -> `<BASE_PATH><slug>/diagrams/x.svg` for OG/listing. */

@@ -1,21 +1,21 @@
 <div class="games-grid">
   <div class="game-cell">
     <div class="game-cell-top">
-      <a href="001-ua-varieties-of-coffee-pt1/">Coffee varieties</a>
-      <small class="game-status">(pt. 1–2, UA/RU)</small>
+      <a href="001-ru-varieties-of-coffee-pt1/">Coffee varieties</a>
+      <small class="game-status">(pt. 1–2)</small>
     </div>
     <p class="game-desc">species vs varieties: typica, bourbon, geisha, and how new cultivars appear</p>
   </div>
   <div class="game-cell">
     <div class="game-cell-top">
-      <a href="013-ua-espresso-pt2/">Espresso experiments</a>
+      <a href="013-ru-espresso-pt2/">Espresso experiments</a>
       <small class="game-status">(history + brew notes)</small>
     </div>
     <p class="game-desc">espresso history, drink variations, and practical extraction / recipe tuning</p>
   </div>
   <div class="game-cell">
     <div class="game-cell-top">
-      <a href="019-ua-tds/">TDS &amp; water</a>
+      <a href="019-ru-TDS/">TDS &amp; water</a>
       <small class="game-status">(lab-style notes)</small>
     </div>
     <p class="game-desc">extraction, TDS, and how water chemistry changes the cup</p>

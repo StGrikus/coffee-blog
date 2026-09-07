@@ -17,6 +17,21 @@ export function isPinnedPostFilename(filename) {
   return extractPostNumber(filename) === 0;
 }
 
+/** Ukrainian twins stay on disk and are still built, but are not listed. */
+export function isUkrainianPostFilename(filename) {
+  return /(?:^|-)ua(?:-|\.md$)/i.test(String(filename || ""));
+}
+
+export function isListedPostFilename(filename) {
+  return !isUkrainianPostFilename(filename);
+}
+
+export function htmlLangFromFilename(filename) {
+  if (isUkrainianPostFilename(filename)) return "uk";
+  if (/(?:^|-)ru(?:-|\.md$)/i.test(String(filename || ""))) return "ru";
+  return "en";
+}
+
 export function cleanTitlePrefixNumber(title, num) {
   const t = String(title || "").trim();
   if (num == null) return t;

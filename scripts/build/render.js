@@ -2,9 +2,6 @@ import {
   BASE_PATH,
   SITE_URL,
   config,
-  GITHUB_DEFAULT_BRANCH,
-  GITHUB_EDIT_REPO,
-  GITHUB_POSTS_PATH,
   GOOGLE_SITE_VERIFICATION
 } from "./context.js";
 import { soundCloudPlayerSrc } from "../lib/soundcloud.js";
@@ -32,14 +29,8 @@ export function renderPostHtml(postTpl, view) {
     OG_IMAGE_META: ogImageMeta,
     TWITTER_CARD: twitterCard,
     TWITTER_IMAGE_META: twitterImageMeta,
-    BACK_TO_POSTS: htmlEscape(config.ui.backToPosts),
     POST_HTML: view.html,
-    POST_SOURCE_FILENAME: htmlEscape(view.filename),
-    NEW_POST_FILENAME: htmlEscape(view.nextPostFilename),
-    FOOTER_TEXT: htmlEscape(view.footerText),
-    GITHUB_EDIT_REPO: htmlEscape(GITHUB_EDIT_REPO),
-    GITHUB_DEFAULT_BRANCH: htmlEscape(GITHUB_DEFAULT_BRANCH),
-    GITHUB_POSTS_PATH: htmlEscape(GITHUB_POSTS_PATH),
+    HTML_LANG: htmlEscape(view.lang || "ru"),
     GOOGLE_SITE_VERIFICATION_META: googleSiteVerificationMetaHtml()
   });
 }
@@ -111,11 +102,6 @@ export function renderPageHtml(pageTpl, view) {
     OG_IMAGE: "",
     POST_LIST: view.listHtml,
     PAGINATION: view.paginationHtml,
-    NEW_POST_FILENAME: htmlEscape(view.nextPostFilename),
-    FOOTER_TEXT: htmlEscape(view.footerText),
-    GITHUB_EDIT_REPO: htmlEscape(GITHUB_EDIT_REPO),
-    GITHUB_DEFAULT_BRANCH: htmlEscape(GITHUB_DEFAULT_BRANCH),
-    GITHUB_POSTS_PATH: htmlEscape(GITHUB_POSTS_PATH),
     GOOGLE_SITE_VERIFICATION_META: googleSiteVerificationMetaHtml()
   });
 }

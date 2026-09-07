@@ -9,13 +9,13 @@ function envOverride(name, fallback) {
 const defaults = {
   site: {
     title: "Coffee Blog",
-    tagline: "beans, brewing, and experiments",
+    tagline: "зёрна, заваривание и заметки",
     url: "",
     companyName: ""
   },
   ui: {
-    backToPosts: "← Back to posts",
-    noPosts: "No posts found"
+    backToPosts: "← Ко всем постам",
+    noPosts: "Пока нет постов"
   },
   blog: {
     postsPerPage: 10,

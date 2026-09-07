@@ -99,6 +99,22 @@ header.site-header {
 
 .site-header-post {
   margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.site-home {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.site-home a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.site-home a:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
 }
 
 .site-tagline {
@@ -493,6 +509,28 @@ header.site-header {
   display: block;
   width: 100%;
   cursor: zoom-in;
+}
+
+.post-content figure.post-figure,
+.pinned-content figure.post-figure {
+  margin: 1.25rem 0;
+}
+
+.post-content figure.post-figure img,
+.pinned-content figure.post-figure img {
+  display: block;
+  width: 100%;
+  margin: 0;
+  box-shadow: none;
+}
+
+.post-content figure.post-figure figcaption,
+.pinned-content figure.post-figure figcaption {
+  margin-top: 0.45rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.4;
 }
 
 .post-content img,

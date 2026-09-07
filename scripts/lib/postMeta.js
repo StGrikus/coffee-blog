@@ -18,9 +18,21 @@ export function isImageLine(line) {
   return /^\s*!\[[^\]]*\]\([^)]+\)\s*$/.test(t) || /<img[^>]+src=/.test(t);
 }
 
+function destFromMarkdownImage(dest) {
+  const t = String(dest || "").trim();
+  if (!t) return "";
+  // `url "title"` / `<url>` — do not leak the title into og:image.
+  const unangled = t.replace(/^<|>$/g, "").trim();
+  const url = unangled.match(/^([^\s]+)/);
+  return url ? url[1].trim() : "";
+}
+
 export function extractFirstImageUrl(content) {
   const mdMatch = content.match(/!\[[^\]]*\]\(([^)]+)\)/);
-  if (mdMatch) return mdMatch[1].trim();
+  if (mdMatch) {
+    const url = destFromMarkdownImage(mdMatch[1]);
+    if (url) return url;
+  }
   const imgMatch = content.match(/<img[^>]+src=["']([^"']+)["']/);
   if (imgMatch) return imgMatch[1].trim();
   return null;
@@ -109,6 +121,19 @@ export function makeSlug({ content, filename }) {
   return (fromFile || "post").slice(0, 80);
 }
 
+function isChromeLine(line) {
+  const t = line.trim();
+  if (!t) return true;
+  if (t.startsWith("<!--")) return true;
+  if (t.startsWith("|")) return true;
+  if (/^<\/?[a-z]/i.test(t)) return true;
+  // Language switchers and series nav: [UA/RU], [Часть 1 | Часть 2]
+  if (/^\[[^\]]*(?:UA|RU|Часть|Частина)/i.test(t)) return true;
+  if (/^\[<a\b/i.test(t)) return true;
+  if (/^(?:Часть|Частина)\s*\d/i.test(t)) return true;
+  return false;
+}
+
 export function extractExcerpt(content, excerptLength) {
   const lines = content.split("\n");
   const titleIndex = lines.findIndex((line) => line.startsWith("# "));
@@ -120,12 +145,14 @@ export function extractExcerpt(content, excerptLength) {
       !line.startsWith("#") &&
       !isImageLine(line) &&
       !isBareUrlLine(line) &&
-      !isYouTubeLine(line),
+      !isYouTubeLine(line) &&
+      !isChromeLine(line),
   );
   if (!firstParagraph) return "";
   return stripHtml(firstParagraph)
     .trim()
     .substring(0, excerptLength)
-    .replace(/\*\*/g, "");
+    .replace(/\*\*/g, "")
+    .replace(/^\[([^\]]+)\]\([^)]+\)/, "$1");
 }
 

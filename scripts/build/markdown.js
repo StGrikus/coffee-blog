@@ -50,7 +50,7 @@ export async function mdToHtml(md) {
     .use(rehypeHighlight)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(renderMathInHtmlBlocks(md));
-  return String(file);
+  return wrapImageFigures(String(file));
 }
 
 export function normalizeMd(raw) {
@@ -59,5 +59,19 @@ export function normalizeMd(raw) {
 
 export function stripFirstH1(md) {
   const s = String(md || "");
-  return s.replace(/^#\s+.*\r?\n/, "");
+  return s.replace(/^(?:\s*<!--[\s\S]*?-->\s*)*#\s+.*\r?\n/, "");
+}
+
+/** Turn a markdown image + italic caption into a figure, and lone images into figures. */
+export function wrapImageFigures(html) {
+  let out = String(html || "");
+  out = out.replace(
+    /<p>\s*(<img\b[^>]*>)\s*<\/p>\s*<p>\s*<em>([\s\S]*?)<\/em>\s*<\/p>/gi,
+    '<figure class="post-figure">$1<figcaption>$2</figcaption></figure>'
+  );
+  out = out.replace(
+    /<p>\s*(<img\b[^>]*>)\s*<\/p>/gi,
+    '<figure class="post-figure">$1</figure>'
+  );
+  return out;
 }

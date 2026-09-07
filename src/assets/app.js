@@ -594,7 +594,6 @@ function setupAboutTips() {
 function initClientEnhancements() {
   setupBackToPosts();
   setupCodeBlockActions();
-  setupImageOpenInNewTab();
   setupListPrefetch();
   setupAboutPersonAnchors();
   setupAboutTips();
@@ -606,6 +605,4 @@ if (document.readyState === "loading") {
   initClientEnhancements();
 }
 
-setupNewPostButton();
-setupGitHubEditButton();
 
