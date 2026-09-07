@@ -1,0 +1,31 @@
+# Posts-only repo layout: put all *.md post files at the repository ROOT.
+# Pin a short intro with a 000-*.md file (see 000-pinned-welcome.md in this example).
+# Copy this file to:  .github/workflows/deploy.yml
+#
+# Engine (reusable workflow): https://github.com/StCost/blog
+# Pages: Settings → Build and deployment → Source: GitHub Actions
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    uses: StCost/blog/.github/workflows/deploy-from-posts.yml@main
+    with:
+      engine_repository: StCost/blog
+      # Google Search Console: add repo secret GOOGLE_SITE_VERIFICATION (token only) and pass:
+      # google_site_verification: ${{ secrets.GOOGLE_SITE_VERIFICATION }}
+      # posts_subpath: content/posts
+      # site_title: "My notebook"
+      # site_tagline: "Short description for meta / empty excerpts"
+      # site_company_name: "Your Name"
+    secrets: inherit

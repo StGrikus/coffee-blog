@@ -1,0 +1,76 @@
+<!doctype html>
+<html
+  lang="en"
+  data-gh-repo="{{GITHUB_EDIT_REPO}}"
+  data-gh-branch="{{GITHUB_DEFAULT_BRANCH}}"
+  data-gh-posts-dir="{{GITHUB_POSTS_PATH}}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {{GOOGLE_SITE_VERIFICATION_META}}
+    <title>{{SITE_TITLE}}</title>
+    <meta name="description" content="{{SITE_TAGLINE}}" />
+    <link rel="canonical" href="{{CANONICAL_URL}}" />
+
+    <meta property="og:title" content="{{SITE_TITLE}}" />
+    <meta property="og:description" content="{{SITE_TAGLINE}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{CANONICAL_URL}}" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{SITE_TITLE}}" />
+    <meta name="twitter:description" content="{{SITE_TAGLINE}}" />
+    <link rel="icon" type="image/svg+xml" href="{{BASE_PATH}}assets/favicon.svg" />
+    <link rel="stylesheet" href="{{BASE_PATH}}assets/theme.css" />
+    <link rel="stylesheet" href="{{BASE_PATH}}assets/styles.css" />
+    <link rel="stylesheet" href="{{BASE_PATH}}assets/highlight.css" />
+    <link rel="stylesheet" href="{{BASE_PATH}}assets/katex.css" />
+    <script defer src="{{BASE_PATH}}assets/app.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header class="site-header">
+        <div>
+          <h1 class="site-title">
+            <a href="{{BASE_PATH}}">{{SITE_TITLE}}</a>
+          </h1>
+          <p class="site-tagline">{{SITE_TAGLINE}}</p>
+        </div>
+      </header>
+
+      <main class="posts">
+        {{POST_LIST}}
+      </main>
+
+      {{PAGINATION}}
+
+      <div class="bottom-bar">
+        <footer class="site-footer">
+          <p class="footer-text">{{FOOTER_TEXT}}</p>
+        </footer>
+
+        <section class="new-post-section">
+          <a
+            class="new-post-button"
+            id="new-post-button"
+            href="#"
+            data-filename="{{NEW_POST_FILENAME}}"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+            </svg>
+            <span>New Post</span>
+          </a>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
+
